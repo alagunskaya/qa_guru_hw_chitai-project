@@ -4,6 +4,7 @@
 ![Selenium](https://img.shields.io/badge/Selenium-4.x-green)
 ![Allure](https://img.shields.io/badge/Allure-2.x-orange)
 ![Pytest](https://img.shields.io/badge/Pytest-9.x-red)
+![Selenoid](https://img.shields.io/badge/Selenoid-Docker-blueviolet)
 ### 🛠️ Setup
 ```bash
 git clone https://github.com/alagunskaya/qa_guru_hw_chitai-project.git
@@ -36,7 +37,6 @@ allure generate allure-results -o allure-report --clean
 allure open allure-report
 ```
 ### 🔴 Watch tests in Selenoid
-During test execution, open:
 ```bash
 UI: https://selenoid.qa.guru/ui/
 ```
