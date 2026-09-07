@@ -37,18 +37,16 @@ class BasePage:
 
     def close_popups(self):
         try:
-            self.wait.until(EC.presence_of_element_located(self.CITY_CONFIRM_BUTTON))
             self.click_js(self.CITY_CONFIRM_BUTTON)
         except TimeoutException:
             print("Окно выбора города не появилось")
             pass
         try:
-            self.wait.until(EC.presence_of_element_located(self.COOKIE_CLOSE_BUTTON))
+            #           self.wait.until(EC.presence_of_element_located(self.COOKIE_CLOSE_BUTTON))
             self.click_js(self.COOKIE_CLOSE_BUTTON)
         except TimeoutException:
             print("Cookie-баннер не найдено")
             pass
-
 
     def scroll_to_element(self, locator):
         element = self.find_element(locator)

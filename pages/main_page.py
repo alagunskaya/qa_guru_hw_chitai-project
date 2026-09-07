@@ -17,7 +17,13 @@ class MainPage(BasePage):
     BUY_BUTTON = (By.CSS_SELECTOR, "button[data-testid-button-mini-product-card='canBuy']")
     CHECKOUT_BUTTON = (By.CSS_SELECTOR, "button[data-testid-button-mini-product-card='inCart']")
     CART_TITLE = (By.CSS_SELECTOR, "h1.cart-page__title")
+    CART_BUTTON = (By.CSS_SELECTOR, "button[data-testid-button-header='cart']")
     PRODUCT_TITLE = (By.CSS_SELECTOR, "h1.product-detail-page__title")
+
+    LOGO = (By.CSS_SELECTOR, "svg.header-sticky__logo")
+    LOGIN_BUTTON = (By.CSS_SELECTOR, "button[data-testid-button-header='profile']")
+    ORDERS_BUTTON = (By.CSS_SELECTOR, "button[aria-label='Заказы']")
+    MY_BOOKS_BUTTON = (By.CSS_SELECTOR, "button[data-testid-link-header-menu='myBooks']")
 
     def open(self):
         self.driver.get("https://www.chitai-gorod.ru/")
@@ -57,3 +63,12 @@ class MainPage(BasePage):
     def get_cart_title(self):
         self.wait.until(EC.visibility_of_element_located(self.CART_TITLE))
         return self.get_text(self.CART_TITLE)
+
+    def wait_for_catalog_title(self):
+        self.wait.until(EC.visibility_of_element_located(self.CATALOG_TITLE))
+
+    def open_cart(self):
+        self.click_element(self.CART_BUTTON)
+
+    def wait_for_cart_title(self):
+        self.wait.until(EC.visibility_of_element_located(self.CART_TITLE))
