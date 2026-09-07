@@ -1,5 +1,3 @@
-import time
-
 import allure
 import pytest
 from pages.main_page import MainPage
@@ -24,7 +22,6 @@ class TestCart:
             main_page.open_catalog()
             main_page.click_see_all_products()
 
-
         with allure.step("Кликаем по первой книге в каталоге"):
             main_page.click_first_product()
 
@@ -37,3 +34,21 @@ class TestCart:
         with allure.step("Проверяем, что открылась корзина с заголовком 'Корзина'"):
             cart_title = main_page.get_cart_title()
             assert cart_title == "Корзина", f"Ожидался заголовок 'Корзина', получен '{cart_title}'"
+
+    @allure.title("Проверка открытия корзины")
+    @pytest.mark.positive
+    def test_cart_opens(self, driver):
+        main_page = MainPage(driver)
+
+        with allure.step("Открываем главную страницу"):
+            main_page.open()
+
+        with allure.step("Закрываем окно города и Cookie-баннер"):
+            main_page.close_popups()
+
+        with allure.step("Кликаем на кнопку 'Корзина' в шапке"):
+            main_page.open_cart()
+
+        with allure.step("Проверяем, что корзина открылась"):
+            main_page.wait_for_cart_title()
+            assert main_page.get_cart_title() == "Корзина", f"Ожидался заголовок 'Корзина', получен: {main_page.get_cart_title()}"

@@ -27,3 +27,26 @@ class TestCatalog:
         with allure.step("Проверяем заголовок страницы 'Книги'"):
             catalog_title = main_page.get_catalog_title()
             assert catalog_title == "Книги", f"Ожидался заголовок 'Книги', получен '{catalog_title}'"
+
+    @allure.title("Проверка URL после открытия каталога")
+    @pytest.mark.positive
+    def test_catalog_url(self, driver):
+        main_page = MainPage(driver)
+
+        with allure.step("Открываем главную страницу"):
+            main_page.open()
+
+        with allure.step("Закрываем окно города и Cookie-баннер"):
+            main_page.close_popups()
+
+        with allure.step("Открываем каталог"):
+            main_page.open_catalog()
+
+        with allure.step("Кликаем на Смотреть все товары"):
+            main_page.click_see_all_products()
+
+        with allure.step("Ожидаем, что страница каталога загрузилась"):
+            main_page.wait_for_catalog_title()
+
+        with allure.step("Проверяем, что URL содержит /catalog"):
+            assert "/catalog" in driver.current_url, f"Ожидался URL с /catalog, получен: {driver.current_url}"
