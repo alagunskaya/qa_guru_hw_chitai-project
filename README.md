@@ -5,7 +5,8 @@
 ![Allure](https://img.shields.io/badge/Allure-2.x-orange)
 ![Pytest](https://img.shields.io/badge/Pytest-9.x-red)
 ![Selenoid](https://img.shields.io/badge/Selenoid-Docker-blueviolet)
-### 🛠️ Setup
+### 🛠️ Установка
+Клонируйте репозиторий, создайте и активируйте виртуальное окружение, установите зависимости.
 ```bash
 git clone https://github.com/alagunskaya/qa_guru_hw_chitai-project.git
 cd qa_guru_hw_chitai-project
@@ -18,7 +19,7 @@ python -m venv .venv
 ```bash
 pip install -r requirements.txt
 ```
-### 🧪 Running Tests
+### 🧪 Запуск тестов
 #### Local
 ```bash
 pytest
@@ -27,7 +28,7 @@ pytest
 ```bash
 pytest --selenoid  
 ```
-### 📊 Allure Report
+### 📊 Отчёты Allure
 ```bash
 # Run tests with Allure results
 pytest --alluredir=allure-results
@@ -36,15 +37,22 @@ pytest --alluredir=allure-results
 allure generate allure-results -o allure-report --clean
 allure open allure-report
 ```
-### 🔴 Watch tests in Selenoid
+### 💡 **Что вы увидите в отчёте:**
+- Скриншоты
+- HTML-исходный код страницы
+- Логи браузера
+- Видео (если тесты запускались в `Selenoid`)
+- Наглядную структуру шагов через `allure.step()`
+
+### 🔴 Просмотр тестов в Selenoid
 ```bash
 UI: https://selenoid.qa.guru/ui/
 ```
 
 ### 🧪 Покрытие тестами
 
-| Тест | Описание                                                                     |
-| :--- |:-----------------------------------------------------------------------------|
-| `test_search_book` | Поиск книги по запросу и проверка результатов                                |
-| `test_view_all_books` | Открытие каталога и переход к просмотру всех товаров                         |
-| `test_add_book_to_cart` | Добавление первой книги из каталога в корзину и проверка заголовка "Корзина" |
+| Тест | Описание                                                                    |
+| :--- |:----------------------------------------------------------------------------|
+| `test_search_book` | Поиск книги по запросу и проверка результатов                               |
+| `test_view_all_books` | Открытие каталога и переход к просмотру всех товаров                        |
+| `test_add_book_to_cart` | Добавление книги из каталога в корзину и проверка заголовка      |
