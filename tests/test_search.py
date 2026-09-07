@@ -3,7 +3,7 @@ import pytest
 from pages.main_page import MainPage
 
 
-@allure.epic("chitai-gorod")
+@allure.epic("UI Тесты chitai-gorod")
 @allure.feature("Поиск")
 class TestSearch:
 
