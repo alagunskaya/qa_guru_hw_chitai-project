@@ -60,4 +60,15 @@ UI: https://selenoid.qa.guru/ui/
 | `test_cart.py` | `test_add_book_to_cart` | Добавление книги из каталога в корзину и проверка заголовка                            |
 | `test_cart.py` | `test_cart_opens` | Проверка открытия корзины                                                              |
 | `test_ui_elements.py` | `test_header_elements_are_visible` | Проверка наличия элементов в хедере (логотип, каталог, поиск)                          |
-| `test_ui_elements.py` | `test_header_right_elements_are_visible` | Проверка наличия элементов в правой части хедера (профиль, заказы, мои книги, корзина) |
+| `test_ui_elements.py` | `test_header_right_elements_are_visible` | Проверка наличия элементов в правой части хедера (профиль, заказы, мои книги, корзина) |  
+
+###  🤖 CI/CD (Jenkins)
+Проект настроен и запускается через Jenkins.    
+**Сборка автоматически выполняет следующие шаги:**
+- Клонирование репозитория
+- Установка зависимостей
+- Запуск тестов в Selenoid
+- Генерация Allure-отчета
+- Отправка оповещения о результатах тестирования Telegram-ботом
+  
+![This is an image](/src/Allure.png)
