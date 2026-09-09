@@ -72,3 +72,8 @@ UI: https://selenoid.qa.guru/ui/
 - Отправка оповещения о результатах тестирования Telegram-ботом
   
 ![This is an image](/src/Allure.png)
+![This is an image](/src/Allure2.png)
+<img src="/src/Jenkins.png" alt="Сборка Jenkins" height ="290"><img src="/src/Results.png" alt="Оповещение" height="290">
+
+**Пример видеозаписи прохождения теста:**  
+![This is an image](/src/CG_test.gif)
