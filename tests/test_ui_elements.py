@@ -7,7 +7,7 @@ from pages.main_page import MainPage
 @allure.feature("Элементы интерфейса")
 class TestUIElements:
 
-    @allure.title("Проверка наличия элементов в хедере']")
+    @allure.title("Проверка наличия элементов в хедере")
     @pytest.mark.positive
     def test_header_elements_are_visible(self, driver):
         main_page = MainPage(driver)
