@@ -21,7 +21,7 @@ def driver(request):
         options = Options()
         options.add_argument("--window-size=1920,1080")
         options.set_capability("browserName", "chrome")
-        options.set_capability("browserVersion", "151.0")
+        options.set_capability("browserVersion", "148.0")
         options.set_capability("selenoid:options", {
             "enableVNC": True,
             "enableVideo": True
