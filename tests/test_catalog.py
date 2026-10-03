@@ -7,7 +7,7 @@ from pages.main_page import MainPage
 @allure.feature("Каталог")
 class TestCatalog:
 
-    @allure.title("Сортировка каталога по цене: от дешевым к дорогим")
+    @allure.title("Сортировка каталога по цене: от дешевых к дорогим")
     @pytest.mark.positive
     def test_sort_by_price_asc(self, driver):
         main_page = MainPage(driver)
