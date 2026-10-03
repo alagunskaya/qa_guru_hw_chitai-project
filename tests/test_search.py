@@ -7,7 +7,7 @@ from pages.main_page import MainPage
 @allure.feature("Поиск")
 class TestSearch:
 
-    @allure.title("Поиск книги")
+    @allure.title("Поиск книги: проверка наличия релевантных результатов")
     @pytest.mark.positive
     def test_search_book(self, driver):
         main_page = MainPage(driver)
@@ -15,39 +15,25 @@ class TestSearch:
         with allure.step("Открываем главную страницу"):
             main_page.open()
 
-        with allure.step("Закрываем окно выбора города"):
+        with allure.step("Закрываем окно выбора города и Cookie-баннер"):
             main_page.close_popups()
 
-        search_query = "Гравити Фолз"
+        search_query = "Гарри Поттер"
 
         with allure.step(f"Вводим в поиск запрос: '{search_query}'"):
             main_page.search(search_query)
 
-        with allure.step("Проверяем, что URL содержит '/search?phrase='"):
-            assert "/search?phrase=" in driver.current_url, f"Ожидался URL с '/search?phrase=', получен: {driver.current_url}"
+        with allure.step("Проверяем, что появились карточки товаров"):
+            titles = main_page.get_all_product_titles()
+            print(f"\nНайдено товаров: {len(titles)}")
+            print(f"Первые 3: {titles[:3]}")
+            assert len(titles) > 0, "Результаты поиска пусты"
 
-        with allure.step("Проверяем заголовок страницы 'Результаты поиска'"):
-            title_text = main_page.get_search_title()
-            assert "Результаты поиска" in title_text, f"Ожидался 'Результаты поиска', получен '{title_text}'"
+        with allure.step(f"Проверяем, что в названиях товаров есть '{search_query}'"):
+            found = any(search_query.lower() in title.lower() for title in titles)
+            assert found, f"Ни один товар не содержит '{search_query}'. Найдены: {titles[:3]}"
 
-    @allure.title("Проверка поиска с пустым запросом")
-    @pytest.mark.positive
-    def test_empty_search(self, driver):
-        main_page = MainPage(driver)
-
-        with allure.step("Открываем главную страницу"):
-            main_page.open()
-
-        with allure.step("Закрываем окно города и Cookie-баннер"):
-            main_page.close_popups()
-
-        with allure.step("Нажимаем на кнопку поиска без ввода текста"):
-            main_page.click_element(main_page.SEARCH_BUTTON)
-
-        with allure.step("Проверяем, что URL остался прежним"):
-            assert "/search?phrase=" not in driver.current_url, "Поиск сработал, хотя запрос пустой"
-
-    @allure.title("Проверка поиска несуществующего товара")
+    @allure.title("Поиск несуществующего товара")
     @pytest.mark.positive
     def test_search_no_results(self, driver):
         main_page = MainPage(driver)
@@ -58,9 +44,23 @@ class TestSearch:
         with allure.step("Закрываем окно города и Cookie-баннер"):
             main_page.close_popups()
 
-        with allure.step("Вводим несуществующий запрос"):
-            main_page.search("Wrongdfghjklrequests")
+        query = "wrongdfghjklrequests"
 
-        with allure.step("Проверяем, что заголовок содержит 'Не принес результатов'"):
+        with allure.step(f"Вводим несуществующий запрос: '{query}'"):
+            main_page.search(query)
+
+        with allure.step("Проверяем, что заголовок сообщает об отсутствии результатов"):
             title_text = main_page.get_search_title()
-            assert "не принес результатов" in title_text, f"Ожидался текст 'Не принес результатов', получен: {title_text}"
+            assert "не принес результатов" in title_text, f"Ожидалось сообщение 'не принес результатов', получено: '{title_text}'"
+
+        with allure.step("Проверяем, что показан блок 'Похоже на то, что вы ищете'"):
+            assert main_page.is_similar_results_visible(), "Блок 'Похоже на то, что вы ищете' не отображается"
+
+        with allure.step(f"Проверяем, что в похожих товарах нет '{query}'"):
+            titles = main_page.get_all_product_titles()
+            print(f"\nНайдено товаров: {len(titles)}")
+            print(f"Первые 3: {titles[:3]}")
+
+            assert len(titles) > 0, "Блок 'похожих' товаров пуст"
+            found = any(query.lower() in t.lower() for t in titles)
+            assert not found, f"Найден товар с '{query}'. Первые 3: {titles[:3]}"

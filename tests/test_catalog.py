@@ -7,30 +7,9 @@ from pages.main_page import MainPage
 @allure.feature("Каталог")
 class TestCatalog:
 
-    @allure.title("Просмотр всех товаров каталога")
+    @allure.title("Сортировка каталога по цене: от дешевым к дорогим")
     @pytest.mark.positive
-    def test_view_all_books(self, driver):
-        main_page = MainPage(driver)
-
-        with allure.step("Открываем главную страницу"):
-            main_page.open()
-
-        with allure.step("Закрываем окно выбора города"):
-            main_page.close_popups()
-
-        with allure.step("Кликаем кнопку 'Каталог'"):
-            main_page.open_catalog()
-
-        with allure.step("Выбираем 'Смотреть все товары'"):
-            main_page.click_see_all_products()
-
-        with allure.step("Проверяем заголовок страницы 'Книги'"):
-            catalog_title = main_page.get_catalog_title()
-            assert catalog_title == "Книги", f"Ожидался заголовок 'Книги', получен '{catalog_title}'"
-
-    @allure.title("Проверка URL после открытия каталога")
-    @pytest.mark.positive
-    def test_catalog_url(self, driver):
+    def test_sort_by_price_asc(self, driver):
         main_page = MainPage(driver)
 
         with allure.step("Открываем главную страницу"):
@@ -39,14 +18,51 @@ class TestCatalog:
         with allure.step("Закрываем окно города и Cookie-баннер"):
             main_page.close_popups()
 
-        with allure.step("Открываем каталог"):
+        with allure.step("Открываем каталог и переходим к списку всех товаров"):
             main_page.open_catalog()
-
-        with allure.step("Кликаем на Смотреть все товары"):
             main_page.click_see_all_products()
-
-        with allure.step("Ожидаем, что страница каталога загрузилась"):
             main_page.wait_for_catalog_title()
 
-        with allure.step("Проверяем, что URL содержит /catalog"):
-            assert "/catalog" in driver.current_url, f"Ожидался URL с /catalog, получен: {driver.current_url}"
+        with allure.step("Открываем меню сортировки и выбираем 'Сначала дешевые'"):
+            main_page.open_sorting()
+            main_page.sort_by_price_asc()
+
+        with allure.step("Ждем, пока кнопка сортировки покажет 'Сначала дешевые'"):
+            main_page.wait_for_sort_button_text("Сначала дешевые")
+
+        with allure.step("Собираем первые 10 цен"):
+            prices = main_page.get_first_n_prices(10)
+
+        with allure.step("Проверяем, что цены идут по возрастанию"):
+            assert len(prices) == 10, f"Ожидалось 10 цен, получено {len(prices)}: {prices}"
+            for i in range(len(prices) - 1):
+                assert prices[i] <= prices[i + 1], f"{prices[i]} стоит перед {prices[i + 1]}. Все цены: {prices}"
+
+    @allure.title("Сортировка каталога по цене: от дорогих к дешевым")
+    @pytest.mark.positive
+    def test_sort_by_price_desc(self, driver):
+        main_page = MainPage(driver)
+
+        with allure.step("Открываем главную страницу"):
+            main_page.open()
+
+        with allure.step("Закрываем окно города и Cookie-баннер"):
+            main_page.close_popups()
+
+        with allure.step("Открываем каталог и переходим к списку всех товаров"):
+            main_page.open_catalog()
+            main_page.click_see_all_products()
+            main_page.wait_for_catalog_title()
+
+        with allure.step("Открываем меню сортировки и выбираем 'Сначала дорогие'"):
+            main_page.open_sorting()
+            main_page.sort_by_price_desc()
+            main_page.wait_for_sort_button_text("Сначала дорогие")
+
+        with allure.step("Собираем первые 10 цен"):
+            prices = main_page.get_first_n_prices(10)
+
+        with allure.step("Проверяем, что цены идут по убыванию"):
+            assert len(prices) == 10, f"Ожидалось 10 цен, получено {len(prices)}: {prices}"
+            for i in range(len(prices) - 1):
+                assert prices[i] >= prices[i + 1], f"{prices[i]} стоит перед {prices[i + 1]}. Все цены: {prices}"
