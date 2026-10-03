@@ -71,9 +71,9 @@ UI: https://selenoid.qa.guru/ui/
 - Генерация Allure-отчета
 - Отправка оповещения о результатах тестирования Telegram-ботом    
 #### Allure-отчет (визуализация и анализ результатов):    
-![This is an image](/src/Allure.png)
-![This is an image](/src/Allure2.png)
+![This is an image](/media/Allure.png)
+![This is an image](/media/Allure2.png)
 #### Оповещение в Telegram о статусе сборки Jenkins: 
-<img src="/src/Jenkins.png" alt="Сборка Jenkins" height ="290"><img src="/src/Results.png" alt="Оповещение" height="290">
+<img src="/media/Jenkins.png" alt="Сборка Jenkins" height ="290"><img src="/media/Results.png" alt="Оповещение" height="290">
 #### Пример видеозаписи прохождения теста:
-![This is an image](/src/CG_test.gif)
+![This is an image](/media/CG_test.gif)
