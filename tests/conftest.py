@@ -42,9 +42,11 @@ def driver(request):
     attach.add_screenshot(driver)
     attach.add_page_source(driver)
     attach.add_logs(driver)
-    attach.add_video(driver)
+    if use_selenoid:
+        attach.add_video(driver)
 
     driver.quit()
+
 
 def pytest_addoption(parser):
     parser.addoption(
