@@ -50,17 +50,14 @@ UI: https://selenoid.qa.guru/ui/
 ```
 
 ### 🧪 Покрытие тестами
-| Файл | Тест | Описание                                                                               |
-| :--- | :--- |:---------------------------------------------------------------------------------------|
-| `test_search.py` | `test_search_book` | Поиск книги по запросу и проверка результатов                                          |
-| `test_search.py` | `test_empty_search` | Проверка поиска с пустым запросом                                                      |
-| `test_search.py` | `test_search_no_results` | Поиск несуществующего товара и проверка сообщения                                      |
-| `test_catalog.py` | `test_view_all_books` | Открытие каталога и переход к просмотру всех товаров                                   |
-| `test_catalog.py` | `test_catalog_url` | Проверка URL после открытия каталога                                                   |
-| `test_cart.py` | `test_add_book_to_cart` | Добавление книги из каталога в корзину и проверка заголовка                            |
-| `test_cart.py` | `test_cart_opens` | Проверка открытия корзины                                                              |
-| `test_ui_elements.py` | `test_header_elements_are_visible` | Проверка наличия элементов в хедере (логотип, каталог, поиск)                          |
-| `test_ui_elements.py` | `test_header_right_elements_are_visible` | Проверка наличия элементов в правой части хедера (профиль, заказы, мои книги, корзина) |  
+| Файл | Тест | Описание |
+| :--- | :--- | :--- |
+| `test_search.py` | `test_search_book` | Поиск книги по запросу и проверка релевантности найденных товаров |
+| `test_search.py` | `test_search_no_results` | Поиск несуществующего товара: проверка сообщения и блока «Похоже на то, что вы ищете» |
+| `test_catalog.py` | `test_sort_by_price_asc` | Сортировка каталога по цене (от дешёвых к дорогим) и проверка порядка цен |
+| `test_catalog.py` | `test_sort_by_price_desc` | Сортировка каталога по цене (от дорогих к дешёвым) и проверка порядка цен |
+| `test_cart.py` | `test_add_book_to_cart` | Добавление книги из каталога в корзину и проверка, что в корзине именно эта книга |
+| `test_cart.py` | `test_remove_book_from_cart` | Удаление книги из корзины и проверка сообщения о пустой корзине |
 
 ###  🤖 CI/CD (Jenkins)
 Проект настроен и запускается через Jenkins.    
@@ -71,9 +68,9 @@ UI: https://selenoid.qa.guru/ui/
 - Генерация Allure-отчета
 - Отправка оповещения о результатах тестирования Telegram-ботом    
 #### Allure-отчет (визуализация и анализ результатов):    
-![This is an image](/media/Allure.png)
 ![This is an image](/media/Allure2.png)
+![This is an image](/media/Allure3.png)
 #### Оповещение в Telegram о статусе сборки Jenkins: 
-<img src="/media/Jenkins.png" alt="Сборка Jenkins" height ="290"><img src="/media/Results.png" alt="Оповещение" height="290">
+<img src="/media/Jenkins2.png" alt="Сборка Jenkins" height ="189"><img src="/media/Results2.png" alt="Оповещение" height="189">
 #### Пример видеозаписи прохождения теста:
 ![This is an image](/media/CG_test.gif)
